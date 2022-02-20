@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+	</head>
+	<body>
+		<script>
+		// method: 方法 一般是和某一个对象实例有联系
+		// function:  函数
+		// 封装栈类
+		function Stack() {
+			this.items = []
+			// 相关操作
+			// 1.将元素加入到栈
+			Stack.prototype.push = function (element) {
+				this.items.push(element)
+			}
+			// 2.取出元素
+			Stack.prototype.pop = function () {
+				return this.items.pop()
+			}
+			// 3.查看栈顶元素
+			Stack.prototype.peek = function () {
+				return this.items[this.items.length - 1]
+			}
+			// 4.查看栈是否为空
+			Stack.prototype.isEmpty = function () {
+				return this.items.length == 0
+			}
+			// 5.获取栈中元素的个数
+			Stack.prototype.size = function () {
+				return this.items.length
+			}
+			// 6.toString方法
+			Stack .prototype.toString = function () {
+				let resultString = ''
+				for (let i = 0; i < this.items.length; i++) {
+					resultString += this.items[i]+' '
+				}
+				return resultString
+			}
+		}
+		
+		// 使用栈
+		
+		function Fun(i) {
+			let s= new Stack()
+			while(i > 0) {
+				let a = i%2;
+				 s.push(a)
+				i = Math.floor(i/2)
+			}
+			// 因为顺序是倒过来的,重新遍历出来
+			let list = ''
+			while(!s.isEmpty()) {
+				list += s.pop()+' '
+			}
+			return list
+		}
+
+		</script>
+	</body>
+</html>
