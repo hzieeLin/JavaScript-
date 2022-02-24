@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Title</title>
+</head>
+<body>
+  <script>
+<!--    封装优先级队列-->
+    function PriorityQueue() {
+      function QueueElement(element, priority) {
+        this.element = element
+        this.priority = priority
+      }
+      this.items = []
+      /*
+      * 两种情况：
+      * 1.当队列中是空，那么就无需考虑优先级直接放进去就行了，
+      * 2.当队列中已经有元素时候，进行比较，插入到比他大的元素（优先级值越小，优先级越大）,如果都没有插入，那么就是插入到最后一行
+      *  */
+      PriorityQueue.prototype.enqueue = function (element, priority) {
+        let queueElement = new QueueElement(element, priority)
+          if(this.items.length === 0) {
+            this.items.push(queueElement)
+          } else {
+            let added = false
+            for (let i = 0; i < this.items.length; i++) {
+              if(queueElement.priority < this.items[i].priority) {
+                this.items.splice(i, 0, queueElement)
+                added = true
+                break
+              }
+            }
+            if(!added) {
+              this.items.push(queueElement)
+            }
+          }
+      }
+      // 2.删除队列中最前端的元素
+      PriorityQueue.prototype.dequeue = function() {
+        return this.items.shift()
+      }
+      // 3.查看队列最前端的元素
+      PriorityQueue.prototype.front = function() {
+        return this.items[0]
+      }
+      // 查看队列是否为空
+      PriorityQueue.prototype.isEmpty = function() {
+        return this.items.length == 0
+      }
+      // 查看队列的元素个数
+      PriorityQueue.prototype.size = function() {
+        return this.items.length
+      }
+      // toString方法
+      PriorityQueue.prototype.toString = function() {
+        let resultString = ''
+        for (let i = 0; i < this.items.length; i++) {
+          resultString += this.items[i].element + '-'+this.items[i].priority+ '   '
+        }
+        return resultString
+      }
+    }
+    let pq = new PriorityQueue()
+    pq.enqueue('lin', 100)
+    pq.enqueue('wu', 111)
+    pq.enqueue('jin', 50)
+    pq.enqueue('kan', 300)
+    alert(pq)
+  </script>
+</body>
+</html>

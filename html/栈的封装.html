@@ -41,7 +41,39 @@
 				return resultString
 			}
 		}
-		
+		// function Fun1(nums, target) {
+		//     let temp;
+		//     for(let i = 0; i< nums.length;i++) {
+		//         for(let j = i+1; j<= nums.length; j++) {
+		//             if(j == i){
+		//                 continue
+		//             }
+		//             temp = nums[i]+nums[j]
+		//             if(temp == target) {
+		//                 return '['+i+','+j+']'
+		//             }
+		//         }
+		//     }
+		// };
+		var twoSum = function(nums, target) {
+		    let arr = '['+[]+']'
+		    let temp;
+		    for(let i = 0; i< nums.length;i++) {
+		        for(let j = i+1; j<= nums.length; j++) {
+		            if(j == i){
+		                continue
+		            }
+		            temp = nums[i]+nums[j]
+		            if(temp == target) {
+		               arr = [i,j]
+		            }
+		            return arr
+		        }
+		    }
+		};
+		let items = [3,3]
+		let target =6
+		alert(twoSum(items, target))
 		// 使用栈
 		let s= new Stack()
 		s.push(10)

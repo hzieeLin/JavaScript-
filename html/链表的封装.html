@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Title</title>
+</head>
+<body>
+  <script>
+    function LinkedList() {
+      //节点类
+      function Node(data, next) {
+        this.data = data
+        this.next = null
+      }
+      //属性
+      this.head = null
+      this.length = 0
+    //  1.append方法实现
+      LinkedList.prototype.append = function (data) {
+        let newNode = new Node(data)
+      //  判断是不是第一个节点
+        if(this.length === 0) {
+          this.head = newNode
+        } else {
+          let current = this.head
+          while (current.next) {
+            //如果current.next 为空，这是最后一个节点
+            current = current.next
+          }
+          current.next = newNode
+        }
+        this.length++;
+      }
+    //  2.toString方法实现
+      LinkedList.prototype.toString = function () {
+        let current = this.head
+        let listString = ""
+      //  循环节点
+        while (current) {
+          listString += current.data + " "
+          current = current.next
+        }
+        return listString
+      }
+    //  3.insert是否实现
+      LinkedList.prototype.insert = function (position, data) {
+        //越界问题
+         if(position < 0 || position > this.length) return false
+        let newNode = new Node(data)
+        //第一种情况， position为0 ,让插入的newNode.next 指向原来的第一个，head再指向newNode
+        if( position === 0) {
+          newNode.next = this.head
+          this.head = newNode
+        } else {
+          let current = this.head
+          let previous = null
+          let index = 0
+          while (index < position) {
+            previous = current
+            current = current.next
+            index++;
+          }
+          newNode.next = current
+          previous.next = newNode
+        }
+        this.length++;
+        return true
+      }
+      LinkedList.prototype.get = function (position) {
+        //越界判断
+        if(position < 0 || position >= this.length) return null
+        let current = this.head
+        let index = 0
+        if(position === 0) {
+          return current.data
+        }else {
+          while (index < position) {
+            current = current.next
+            index++;
+          }
+          return current.data
+        }
+      }
+      //获取指定data的索引值
+      LinkedList.prototype.indexOf = function (data) {
+        let index = 0
+        let current = this.head
+        while (current) {
+          if(current.data === data) {
+            return index
+          }
+          current = current.next
+          index++;
+        }
+        return -1
+      }
+    }
+      //update修改指定位置的元素
+      LinkedList.prototype.update = function (position, data) {
+        //越界判断
+        if(position < 0 || position >= this.length) return null
+        let current = this.head
+        let index = 0
+        if(position === 0) {
+          return current.data
+        }else {
+          while (index < position) {
+            current = current.next
+            index++;
+          }
+          current.data = data
+        }
+      }
+    //  removeAt()删除指定位置的数据
+    LinkedList.prototype.removeAt = function (position) {
+      if(position < 0 || position >= this.length) return null
+      let index = 0
+      let current = this.head
+      let previous = null
+      if(position === 0) {
+        this.head = current.next
+      }else {
+        while (index < position) {
+          previous = current
+          current = current.next
+          index++
+        }
+        previous.next = current.next
+      }
+      this.length -=1
+      return current.data
+    }
+    LinkedList.prototype.remove = function (data) {
+      let position = this.indexOf(data)
+      return this.removeAt(position)
+    }
+    LinkedList.prototype.isEmpty = function () {
+      if(this.length !== 0) {
+        return false
+      }else {
+        return true
+      }
+    }
+    LinkedList.prototype.size = function () {
+      return this.length
+    }
+    let list = new LinkedList()
+    list.append('a')
+    list.append('b')
+    list.append('c')
+    list.insert(3,'d')
+    //alert(list.indexOf('cc'))
+ //  alert(list)
+    alert(list.isEmpty())
+  </script>
+</body>
+</html>
